@@ -1,6 +1,6 @@
-from .models import CloudFile
-from django.contrib.auth.models import User
 from rest_framework import serializers
+from django.contrib.auth.models import User
+from .models import CloudFile
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -17,6 +17,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class CloudFileSerializer(serializers.ModelSerializer):
+    is_owner = serializers.SerializerMethodField()
+    owner_username = serializers.CharField(source='user.username', read_only=True)
+    shared_with = serializers.SlugRelatedField(many=True, slug_field='username', read_only=True)
+
     class Meta:
         model = CloudFile
-        fields = ('id', 'file_name', 'upload_date', 'last_download_date')
+        fields = ['id', 'file_name', 'upload_date', 'last_download_date', 'is_owner', 'owner_username', 'shared_with']
+
+    def get_is_owner(self, obj):
+        request = self.context.get('request')
+        if request and request.user:
+            return obj.user == request.user
+        return False
