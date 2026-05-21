@@ -6,7 +6,7 @@ from files.views import RegisterView, FileListCreateView, FileDetailView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # Kimlik İşlemleri
+    
     path('api/register/', RegisterView.as_view(), name='register'),
     path('api/login/', TokenObtainPairView.as_view(), name='login'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
