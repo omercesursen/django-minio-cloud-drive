@@ -12,6 +12,6 @@ urlpatterns = [
     path('api/files/', FileListCreateView.as_view(), name='file-list-create'),
     path('api/files/<int:pk>/', FileDetailView.as_view(), name='file-detail'),
 
-    # YENİ ENDPOINT
+
     path('api/files/<int:pk>/share/', FileShareView.as_view(), name='file-share'),
 ]
