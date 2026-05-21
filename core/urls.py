@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/login/', TokenObtainPairView.as_view(), name='login'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # Dosya İşlemleri (İşte o 4 Endpoint)
+    
     path('api/files/', FileListCreateView.as_view(), name='file-list-create'),
     path('api/files/<int:pk>/', FileDetailView.as_view(), name='file-detail'),
 ]
